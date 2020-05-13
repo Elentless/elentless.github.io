@@ -36,7 +36,7 @@
                    <input type="text" name="name"  class="form-control my-input" id="name" placeholder="Name">
                 </div>
                 <div class="form-group">
-                   <input type="email" name="email"  class="form-control my-input" id="email" placeholder="Email">
+                   <input id="emailInput" type="email" name="email"  class="form-control my-input" id="email" placeholder="Email">
                    <input type="hidden" name="_gotcha"><!-- use this to prevent spam -->
                 </div>
                 <div class="text-center ">
@@ -63,10 +63,29 @@
     -->
 
     <script>
+    function ValidateEmail(mail)
+    {
+     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+      {
+        alert("Valid email")
+        return (true)
+      }
+        alert("You have entered an invalid email address!")
+        return (false)
+    }
+
     $(function(){
         $(".ajaxForm").submit(function(e){
             e.preventDefault();
             var href = $(this).attr("action");
+            if ( $.trim( $('#name').val() ) == '' ){
+                return;
+            }
+
+            if (!ValidateEmail(document.getElementById("emailInput").value)){
+                return;
+            }
+
             $.ajax({
                 type: "POST",
                 dataType: "json",
