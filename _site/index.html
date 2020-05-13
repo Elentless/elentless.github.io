@@ -22,17 +22,16 @@
 
       <!-- Start of form -->
       <div class="col-md-6 mx-auto text-center">
-         <div class="header-title">
-            <h2 class="wv-heading--subtitle">
-               Sign up to be notified when we launch
-            </h2>
-         </div>
+        <h2 class="wv-heading--subtitle">
+           Sign up to be notified when we launch
+        </h2>
+          <p id="thankYouText" class="wv-heading--subtitle"> Thank you for signing up! </p>
       </div>
 
-      <div class="row">
+      <div id="formContainer" class="row">
        <div class="col-md-4 mx-auto">
           <div class="myform form ">
-             <form class="ajaxForm" action="https://formcarry.com/s/wLk8i5qLKBpV" accept-charset="UTF-8" >
+             <form id="signUpForm" class="ajaxForm" action="" accept-charset="UTF-8" >
                 <div class="form-group">
                    <input type="text" name="name"  class="form-control my-input" id="name" placeholder="Name">
                 </div>
@@ -68,6 +67,8 @@
         $(".ajaxForm").submit(function(e){
             e.preventDefault();
             var href = $(this).attr("action");
+            $("#formContainer").stop().fadeOut(500, function() { $("#thankYouText").stop().fadeIn(500) });
+
             $.ajax({
                 type: "POST",
                 dataType: "json",
@@ -75,6 +76,8 @@
                 data: $(this).serialize(),
                 success: function(response){
                     if(response.status == "success"){
+                        $('#signUpForm')[0].reset();
+                        $("#thankYouText").fadeIn(1000, myFunction);
                         alert("We received your submission, thank you!");
                     }else{
                         alert("An error occured: " + response.message);

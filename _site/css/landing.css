@@ -1,5 +1,9 @@
 #mainContent {
-display:none;
+    display:none;
+}
+
+#thankYouText {
+    display:none;
 }
 
 .send-button{
